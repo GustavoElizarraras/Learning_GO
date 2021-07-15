@@ -6,9 +6,11 @@ func main() {
 
 	// To declare a slice, is almost the same as an array:
 	var (
-		sl1 []int // Inside the brackets is empty
-		sl2 = []int{3, 6, 11}
-		sl4 = []float32{1.2, 4.5, 6.3, 8.9, 11.1}
+		sl1   []int // Inside the brackets is empty, nil slice.
+		sl2   = []int{3, 6, 11}
+		sl4   = []float32{1.2, 4.5, 6.3, 8.9, 11.1}
+		sl_zl = []int{} // Zero length slice, non nil. Useful when converting to JSON
+
 	)
 
 	fmt.Printf("Slice of ints %v\n", sl1)
@@ -45,6 +47,15 @@ func main() {
 
 	// The goal is to minimize the number of times the slice needs to grow
 
+	// If an array is sliced, it is converted to a slice
+
+	// Declaring slices:
+	// // Slice as buffer, specify a non-zero lengthconst
+	// // If sure aobut the exact size, specify length and index of values.
+	// // Other, use make() with zero length and specific capacity
+
+	// if slice is initialized to zero length may be slower, but less likely to introduce a bug.
+
 	// Slicing is the same as other languages
 	sl_sub1 := sl4[1:]  // from second element to end
 	sl_sub2 := sl4[1:4] // from second to 5th-1
@@ -60,4 +71,5 @@ func main() {
 	fmt.Printf("The independent slice is: %v\n", sl_independent)
 	sl_independent = append(sl_independent, 10.0) // If we append, it does not share memory
 	fmt.Printf("The independent slice is: %v and sl4 is: %v\n", sl_independent, sl4)
+
 }
