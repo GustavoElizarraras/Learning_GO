@@ -61,6 +61,13 @@ var opMap = map[string]func(int, int) int{
 	"/": div,
 }
 
+// Funcion type declarations
+// A function can be a type and be defined
+type opFuncType func(int, int) int //comment
+
+// for example rewriting the opMap:
+var opMap = map[string]opFuncType{} //comment
+
 func main() {
 	x, y, z := divAndRemainder(5, 2)
 	fmt.Println(x, y, z)
