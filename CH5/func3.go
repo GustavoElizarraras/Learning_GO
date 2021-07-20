@@ -5,7 +5,7 @@ import (
 	"sort"
 )
 
-// Data validation and error checking is important
+// Data validation and error checking are important
 
 // return Functions from functions (return a closure)
 func makeMul(base int) func(int) int {
@@ -13,6 +13,23 @@ func makeMul(base int) func(int) int {
 		return base * factor
 	}
 }
+
+// Go is call by value
+// When supplying a variable for a parameter to a function, go makes a copy of the value.
+type person struct {
+	age  int
+	name string
+}
+
+func modifyFails(i int, s string, p person) {
+	i = i * 2
+	s = "Goodbye"
+	p.name = "Bob"
+}
+
+// A function won't change the values of the parameters passed into it
+// This is not true is the parameter is a slice or map, a map can be modified and lenghten,
+// but the slice can only be modified. This is because of pointers.
 
 func main() {
 	// Anonymus functions, a function inside a function, they don not have a name
@@ -65,4 +82,10 @@ func main() {
 
 	}
 
+	// Go is call by value
+	p := person{}
+	i := 2
+	s := " Hello"
+	modifyFails(i, s, p)
+	fmt.Println(i, s, p)
 }
