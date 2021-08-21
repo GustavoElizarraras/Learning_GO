@@ -5,6 +5,35 @@ import (
 	"time"
 )
 
+// Turning off a case in a select
+// selectis used to combine data from multiple concurrent sources, but you
+// need to properly handle closed channel. If a case is is reading a closed
+// channel, it will return the zero value, you need to validate the value and 
+// skip the case, if reads are spaced out, the programm will waste time reading junk
+// We can disable a case in a select with a nil channel, when a channel has been
+// closed, set the channel variable to nil, the associated case will no longer run
+// because the reading from a nil channel never returns a value  
+
+for {
+	select {
+	// process the v that was read from channel in
+	case v, ok := <-in
+		if !ok {
+			in = nil //the case will never succeed again
+			continue
+		}
+		
+	// process the v that was read from channel in2
+	case v, ok := <- in2:
+		if !ok {
+			in2 = nil
+			continue
+		}
+	case <-done:
+		return
+	}
+}
+
 // How to time out code
 // Most interactive programs have to return a response within a certain
 // amount of time, with concurrency we can control how much time a request
